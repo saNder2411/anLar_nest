@@ -1,12 +1,13 @@
-export const enum TopLevelCategory {
+export const enum LevelCategory {
 	Courses,
 	Services,
 	Books,
 	Products,
 }
 
-export class TopPageModel {
-	firstCategory: TopLevelCategory
+export class PageModel {
+	_id: string
+	firstCategory: LevelCategory
 	secondCategory: string
 	title: string
 	category: string
