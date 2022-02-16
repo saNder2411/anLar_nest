@@ -26,7 +26,7 @@ export class ProductController {
 	}
 
 	@HttpCode(200)
-	@Post()
+	@Post('find')
 	async find(@Body() dto: FindProductDTO) {
 		console.log('find', dto)
 	}

@@ -1,33 +1,31 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
 import { FindPageDTO } from './dto/find-page.dto'
 import { PageModel } from './page.model'
 
 @Controller('page')
 export class PageController {
-	@Post('create')
-	async create(@Body() dto: Omit<PageModel, '_id'>) {
-		console.log('create', dto)
-	}
+	// constructor(private readonly configService: ConfigService) {}
 
-	@Get(':id')
-	async get(@Param('id') id: string) {
-		console.log('get', id)
-	}
-
-	@Patch(':id')
-	async patch(@Param('id') id: string, @Body() dto: PageModel) {
-		console.log('update', dto)
-	}
-
-	@Delete(':id')
-	async delete(@Param('id') id: string) {
-		console.log('delete', id)
+	@Get('get/:alias')
+	async get(@Param('alias') alias: string) {
+		console.log('get', alias)
 	}
 
 	@HttpCode(200)
-	@Post()
-	async find(@Body() dto: FindPageDTO) {
+	@Post('find')
+	async getByCategory(@Body() dto: FindPageDTO) {
 		console.log('find', dto)
+	}
+
+	@Post('save')
+	async save(@Body() dto: Omit<PageModel, '_id'>) {
+		console.log('create', dto)
+	}
+
+	@Delete('delete')
+	async delete(@Body() dto: Omit<PageModel, '_id'>) {
+		console.log('delete', dto)
 	}
 }
