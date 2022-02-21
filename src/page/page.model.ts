@@ -1,4 +1,4 @@
-import { prop } from '@typegoose/typegoose'
+import { prop, index } from '@typegoose/typegoose'
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses'
 
 export enum LevelCategory {
@@ -32,6 +32,7 @@ class PageAdvantage {
 
 export interface PageModel extends Base {}
 
+@index({ '$**': 'text' })
 export class PageModel extends TimeStamps {
 	@prop({ enum: LevelCategory })
 	firstCategory: LevelCategory
@@ -39,11 +40,17 @@ export class PageModel extends TimeStamps {
 	@prop()
 	secondCategory: string
 
-	@prop()
+	@prop({ unique: true })
 	alias: string
 
-	@prop({ unique: true })
+	@prop()
 	title: string
+
+	@prop()
+	metaTitle: string
+
+	@prop()
+	metaDescription: string
 
 	@prop()
 	category: string

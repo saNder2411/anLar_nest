@@ -39,6 +39,12 @@ export class CreatePageDto {
 	title: string
 
 	@IsString()
+	metaTitle: string
+
+	@IsString()
+	metaDescription: string
+
+	@IsString()
 	category: string
 
 	@IsOptional()

@@ -21,8 +21,23 @@ export class PageService {
 	async findByAlias(alias: string) {
 		return this.pageModel.findOne({ alias }).exec()
 	}
+
 	async findByCategory({ firstCategory }: FindPageDTO) {
-		return this.pageModel.find({ firstCategory }, { alias: 1, firstCategory: 1, secondCategory: 1, title: 1 }).exec()
+		return (
+			this.pageModel
+				.aggregate()
+				.match({ firstCategory })
+				.group({ _id: '$secondCategory', pages: { $push: { alias: '$alias', title: '$title' } } })
+				// .aggregate([
+				// 	{ $match: { firstCategory } },
+				// 	{ $group: { _id: '$secondCategory', pages: { $push: { alias: '$alias', title: '$title' } } } },
+				// ])
+				.exec()
+		)
+	}
+
+	async findByText(text: string) {
+		return this.pageModel.find({ $text: { $search: text, $caseSensitive: false } }).exec()
 	}
 
 	async deleteById(_id: string) {
