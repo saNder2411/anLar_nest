@@ -21,7 +21,5 @@ import { ReviewModule } from './review/review.module'
 		ProductModule,
 		ReviewModule,
 	],
-	controllers: [],
-	providers: [],
 })
 export class AppModule {}
